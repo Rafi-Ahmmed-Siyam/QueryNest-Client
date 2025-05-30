@@ -1,9 +1,10 @@
 import React from 'react';
 import mainLogo from '../assets/MainIcon.png'
 import { Link, Links } from 'react-router-dom';
+import useAuth from '../Hooks/useAuth';
 
 const Navbar = () => {
-
+	const { userLogout, user } = useAuth();
 
 
 	return (
@@ -22,27 +23,34 @@ const Navbar = () => {
 					<li className='hidden md:hidden lg:block text-white hover:text-cyan-200'><a>Recommendations For Me</a></li>
 					<li className='hidden md:hidden lg:block text-white hover:text-cyan-200'><a>My Queries</a></li>
 					<li className='hidden md:hidden lg:block text-white hover:text-cyan-200'><a>My recommendations</a></li>
-					{/* <div className="dropdown dropdown-end">
-						<div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar ml-2">
-							<div className="w-10 rounded-full">
-								<img
-									alt="Tailwind CSS Navbar component"
-									src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+
+					{
+						user ?
+							<div className="dropdown dropdown-end">
+								<div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar ml-2">
+									<div className="w-10 rounded-full border-2 border-green-600">
+										<img
+											referrerPolicy='no-referrer'
+											alt="Tailwind CSS Navbar component"
+											src={user?.photoURL} />
+									</div>
+								</div>
+
+								<ul
+									tabIndex={0}
+									className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+									<li className='block md:block lg:hidden text-[#1F2937]'><a>Recommendations For Me</a></li>
+									<li className='block md:block lg:hidden text-[#1F2937]'><a>My Queries</a></li>
+									<li className='block md:block lg:hidden text-[#1F2937]'><a>My recommendations</a></li>
+									<li onClick={() =>userLogout()} className="btn btn-sm bg-[#E8E9EB] rounded-l-lg mt-4 text-[#1F2937]">Log Out</li>
+								</ul>
 							</div>
-						</div>
-						
-						<ul
-							tabIndex={0}
-							className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-							<li className='block md:block lg:hidden text-[#1F2937]'><a>Recommendations For Me</a></li>
-							<li className='block md:block lg:hidden text-[#1F2937]'><a>My Queries</a></li>
-							<li className='block md:block lg:hidden text-[#1F2937]'><a>My recommendations</a></li>
-							<button className="btn btn-sm bg-[#E8E9EB] rounded-l-lg mt-4 text-[#1F2937]">Log Out</button>
-						</ul>
-					</div> */}
-					<div>
-						<li><Link className='btn text-blue-600 hover:bg-gray-300 hover:text-black' to={'/signIn'}>Signin</Link></li>
-					</div>
+							:
+							<div className='ml-2'>
+								<li><Link className='btn text-blue-600 hover:bg-gray-300 hover:text-black' to={'/signIn'}>Signin</Link></li>
+							</div>
+					}
+
 				</ul>
 			</div>
 		</div>
