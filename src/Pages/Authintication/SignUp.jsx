@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import useAuth from '../../Hooks/useAuth';
+import toast from 'react-hot-toast';
 
 const SignUp = () => {
    const navigate = useNavigate()
@@ -37,20 +38,21 @@ const SignUp = () => {
          await createUser(email, password);
          await updateuserProfile(userName, photoUrl);
          form.reset();
-         alert("SIgnUp successfull")
+         toast.success('Signup successful! Let’s get started!')
          navigate('/')
       }
       catch (err) {
-         alert(err.message);
+         toast.error(err.message);
       }
    }
 
    const handleGoogle = async () => {
       try {
          await googleLogin();
+         toast.success('Signup successful! Let’s get started!')
          navigate('/')
       } catch (err) {
-         alert(err.message)
+         toast.error(err.message);
       }
    }
 

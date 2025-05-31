@@ -3,22 +3,23 @@ import logo from '../../assets/MainIcon.png'
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../../Firebase/Firebase.config';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const PassResetPage = () => {
    const navigate = useNavigate()
-   const handleReserPass = async(e)=>{
+   const handleReserPass = async (e) => {
       e.preventDefault();
       const form = e.target;
       const email = form.email.value;
 
-      try{
-         await sendPasswordResetEmail(auth,email);
-         alert('Chack your inbox and follow instruction');
+      try {
+         await sendPasswordResetEmail(auth, email);
+         toast.success("We've sent you a password reset link. Check your email and follow the instructions to reset your password")
          navigate('/signIn')
-      }catch(err){
-         alert(err.message)
+      } catch (err) {
+         toast.error('Failed to send reset email. Please check the email address and try again.');
       }
-       
+
    }
    return (
       <div className='flex justify-center items-center min-h-[calc(100vh-391px)]'>

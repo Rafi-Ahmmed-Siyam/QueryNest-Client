@@ -36,7 +36,7 @@ const Slider = () => {
                   hedding='Find Better Alternatives'
                   subtext='Tired of low-quality products? Post your query and discover community-recommended better options.'
                   btnContent='Explore Queries'
-                  link='/'
+                  link='/allQueries'
                />
             </SwiperSlide>
             <SwiperSlide>
@@ -44,12 +44,11 @@ const Slider = () => {
                   hedding='Real Users. Real Reviews.'
                   subtext='See what others are recommending. Make smarter decisions with real-time suggestions from real people.'
                   btnContent='Add Your Query'
-                  link='/'
+                  link='/addQueries'
                />
             </SwiperSlide>
             <SwiperSlide>
                <Slide img={img3}
-                  text='Hello world'
                   hedding='Ask. Answer. Improve.'
                   subtext='Ask your questions, get trusted recommendations, and help others with your product insights.'
                   btnContent='Add Your Query'

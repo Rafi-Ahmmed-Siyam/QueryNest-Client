@@ -7,6 +7,7 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import AuthContext from '../../Contexts/AuthContext';
 import useAuth from '../../Hooks/useAuth';
+import toast from 'react-hot-toast';
 
 
 
@@ -26,18 +27,19 @@ const SignIn = () => {
          await userSignin(email, password);
          form.reset();
          navigate('/')
-         alert('Signin successfull');
+         toast.success('Signed in successfully! Welcome back!')
       } catch (err) {
-         alert(err.message)
+         toast.error(err.message)
       }
 
    }
    const handleGoogle = async () => {
       try{
          await googleLogin();
+          toast.success('Signed in successfully! Welcome back!')
          navigate('/')
       }catch(err){
-         alert(err.message)
+         toast.error(err.message)
       }
    }
 
@@ -81,7 +83,7 @@ const SignIn = () => {
                         {showPassword ? <FaEye className='text-xl' /> : <FaEyeSlash className='text-xl' />}
                      </button>
                   </div>
-                  <div><Link to={'/passReset'} className="link link-hover text-red-600">Forgot password?</Link></div>
+                  <div><Link to={'/passReset'} className="link link-hover text-red-600 font-medium">Forgot password?</Link></div>
 
                   <button className="btn btn-neutral mt-4 rounded-md bg-[#0EA5E9] text-gray-800 border-none py-4">Signin</button>
                </form>

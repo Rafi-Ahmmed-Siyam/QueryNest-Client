@@ -5,15 +5,19 @@ import { useEffect, useState } from "react";
 
 const AuthProvider = ({ children }) => {
    const googleProvider = new GoogleAuthProvider();
-   const [user, setUser] = useState(null)
+   const [user, setUser] = useState(null);
+   const [loding,setLoding] = useState(true)
 
    const createUser = (email, password) => {
+      setLoding(true)
       return createUserWithEmailAndPassword(auth, email, password)
    }
    const userSignin = (email, password) => {
+      setLoding(true)
       return signInWithEmailAndPassword(auth,email, password);
    }
    const googleLogin = () => {
+      setLoding(true)
       return signInWithPopup(auth, googleProvider)
    }
    const updateuserProfile = (name,image) => {
@@ -25,6 +29,7 @@ const AuthProvider = ({ children }) => {
 
 
    const userLogout = () => {
+      setLoding(true);
       setUser(null);
       return signOut(auth)
    }
@@ -34,8 +39,10 @@ const AuthProvider = ({ children }) => {
       const unSubscribe = onAuthStateChanged(auth, (currentuser) => {
          if (currentuser) {
             setUser(currentuser);
+            setLoding(false)
             console.log('userData----->', currentuser)
          } else {
+            setLoding(false)
             console.log("User Loged Out")
          }
       })
@@ -48,6 +55,8 @@ const AuthProvider = ({ children }) => {
 
    const authData = {
       user,
+      loding,
+      setLoding,
       createUser,
       userSignin,
       googleLogin,
