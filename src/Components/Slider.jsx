@@ -9,9 +9,11 @@ import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import Slide from './Slide';
 
-import img1 from '../assets/sliderImg/Slide1.jpg'
-import img2 from '../assets/sliderImg/Slide2.jpg'
-import img3 from '../assets/sliderImg/Slide3.jpg'
+import img1 from '../../src/assets/sliderImg/slide1.jpg'
+import img2 from '../../src/assets/sliderImg/slide2.jpg'
+import img3 from '../../src/assets/sliderImg/slide3.jpg'
+import img4 from '../../src/assets/sliderImg/slide4.jpg'
+import img5 from '../../src/assets/sliderImg/desktop-with-notebook-watch.jpg'
 
 const Slider = () => {
    return (
@@ -32,29 +34,42 @@ const Slider = () => {
             className="mySwiper"
          >
             <SwiperSlide>
-               <Slide img={img1}
-                  hedding='Find Better Alternatives'
-                  subtext='Tired of low-quality products? Post your query and discover community-recommended better options.'
-                  btnContent='Explore Queries'
+               <Slide img={img3}
+                  hedding='Get Help Choosing Accessories'
+                  subtext='See what others are asking about keyboards, mice, monitors, and other essentials for a better setup.'
+                  btnContent='Explore Accessories Queries'
                   link='/allQueries'
                />
             </SwiperSlide>
+
             <SwiperSlide>
-               <Slide img={img2}
-                  hedding='Real Users. Real Reviews.'
-                  subtext='See what others are recommending. Make smarter decisions with real-time suggestions from real people.'
-                  btnContent='Add Your Query'
+               <Slide img={img1}
+                  hedding='Confused About Which Phone to Buy?'
+                  subtext='Not sure which phone suits your needs? Ask your question and let the community help you choose the right one.'
+                  btnContent='Add Phone Query'
                   link='/addQueries'
                />
             </SwiperSlide>
+
             <SwiperSlide>
-               <Slide img={img3}
-                  hedding='Ask. Answer. Improve.'
-                  subtext='Ask your questions, get trusted recommendations, and help others with your product insights.'
-                  btnContent='Add Your Query'
-                  link='/'
+               <Slide img={img5}
+                  hedding='Discover Smartwatches That Fit You'
+                  subtext='Read questions and answers about fitness trackers, smartwatches, and what’s trending in wearable tech.'
+                  btnContent='See Wearable Queries'
+                  link='/allQueries'
                />
             </SwiperSlide>
+
+            <SwiperSlide>
+               <Slide img={img2}
+                  hedding='Looking for the Best Sound Gear?'
+                  subtext='Post your query about earbuds, headphones, or speakers and get real recommendations from others.'
+                  btnContent='Add Audio Query'
+                  link='/addQueries'
+               />
+            </SwiperSlide>
+
+
 
          </Swiper>
       </div>

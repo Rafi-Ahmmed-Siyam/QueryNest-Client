@@ -12,7 +12,7 @@ const Slide = ({ img, hedding, subtext,btnContent,link }) => {
          <div className='flex justify-center items-center w-full h-full bg-gray-900/70'>
             <div className='text-center'>
                <h2 className='text-2xl md:text-3xl lg:text-4xl font-bold text-white'>{hedding}</h2>
-               <p className='text-gray-300 mt-2 text-sm lg:text-base'>{subtext}</p>
+               <p className='text-gray-300 mt-3 text-xs md:text-base lg:text-base mx-auto max-w-[18rem] md:max-w-none'>{subtext}</p>
                <Link className='mt-5 btn bg-[#0EA5E9] border-none text-white text-sm lg:text-base lg:px-7  lg:py-6' to={`${link}`}>{btnContent}</Link>
             </div>
          </div>
