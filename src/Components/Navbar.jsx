@@ -4,7 +4,7 @@ import { Link, Links, NavLink } from 'react-router-dom';
 import useAuth from '../Hooks/useAuth';
 
 const Navbar = () => {
-	const { userLogout, user,loding } = useAuth();
+	const { userLogout, user, loding } = useAuth();
 	const navLinkClass = ({ isActive }) => {
 		isActive && 'text-cyan-500 font-medium'
 	}
@@ -34,31 +34,46 @@ const Navbar = () => {
 							: 'text-white hover:text-cyan-200'
 					} to={'/allQueries'}>Queries</NavLink></li>
 
-					{
-						!loding && user && <>
-							<li className='hidden md:hidden lg:block text-white hover:text-cyan-200'><NavLink className={({ isActive }) =>
-								isActive
-									? 'text-amber-300 font-bold'
-									: 'text-white hover:text-cyan-200'
-							} to={'/addQueries'}>Add Queries</NavLink></li>
-							<li className='hidden md:hidden lg:block text-white hover:text-cyan-200'><NavLink className={({ isActive }) =>
-								isActive
-									? 'text-amber-300 font-bold'
-									: 'text-white hover:text-cyan-200'
-							} to={'/myQueries'}>My Queries</NavLink></li>
-							<li className='hidden md:hidden lg:block text-white hover:text-cyan-200'><NavLink className={({ isActive }) =>
-								isActive
-									? 'text-amber-300 font-bold'
-									: 'text-white hover:text-cyan-200'
-							} to={'/recommendationsForMe'}>Recommendations For Me</NavLink></li>
-							<li className='hidden md:hidden lg:block text-white hover:text-cyan-200'><NavLink className={({ isActive }) =>
-								isActive
-									? 'text-amber-300 font-bold'
-									: 'text-white hover:text-cyan-200'
-							} to={'/myRecommendations'}>My recommendations</NavLink></li>
-
+					{user && (
+						<>
+							<li className='hidden md:hidden lg:block text-white hover:text-cyan-200'>
+								<NavLink
+									className={({ isActive }) =>
+										isActive
+											? 'text-amber-300 font-bold'
+											: 'text-white hover:text-cyan-200'
+									}
+									to="/myQueries"
+								>
+									My Queries
+								</NavLink>
+							</li>
+							<li className='hidden md:hidden lg:block text-white hover:text-cyan-200'>
+								<NavLink
+									className={({ isActive }) =>
+										isActive
+											? 'text-amber-300 font-bold'
+											: 'text-white hover:text-cyan-200'
+									}
+									to="/recommendationsForMe"
+								>
+									Recommendations For Me
+								</NavLink>
+							</li>
+							<li className='hidden md:hidden lg:block text-white hover:text-cyan-200'>
+								<NavLink
+									className={({ isActive }) =>
+										isActive
+											? 'text-amber-300 font-bold'
+											: 'text-white hover:text-cyan-200'
+									}
+									to="/myRecommendations"
+								>
+									My recommendations
+								</NavLink>
+							</li>
 						</>
-					}
+					)}
 
 
 					{
@@ -76,10 +91,11 @@ const Navbar = () => {
 								<ul
 									tabIndex={0}
 									className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-									<li className='block md:block lg:hidden text-[#1F2937]'><NavLink className={({ isActive }) => isActive && 'bg-amber-300'} to={'/myQueries'}>My Queries</NavLink></li>
-									<li className='block md:block lg:hidden text-[#1F2937]'><NavLink className={({ isActive }) => isActive && 'bg-amber-300'} to={'/recommendationsForMe'}>Recommendations For Me</NavLink></li>
-									<li className='block md:block lg:hidden text-[#1F2937]'><NavLink className={({ isActive }) => isActive && 'bg-amber-300'} to={'/addQueries'}>Add Queries</NavLink></li>
-									<li className='block md:block lg:hidden text-[#1F2937]'><NavLink className={({ isActive }) => isActive && 'bg-amber-300'} to={'/myRecommendations'}>My recommendations</NavLink></li>
+									<li className='block md:block lg:hidden text-[#1F2937]'><NavLink className={({ isActive }) => isActive ? 'bg-amber-300':undefined} to={'/myQueries'}>My Queries</NavLink></li>
+
+									<li className='block md:block lg:hidden text-[#1F2937]'><NavLink className={({ isActive }) => isActive ? 'bg-amber-300':undefined} to={'/recommendationsForMe'}>Recommendations For Me</NavLink></li>
+
+									<li className='block md:block lg:hidden text-[#1F2937]'><NavLink className={({ isActive }) => isActive ? 'bg-amber-300':undefined} to={'/myRecommendations'}>My recommendations</NavLink></li>
 									<li onClick={() => userLogout()} className="btn btn-sm rounded-lg mt-4 bg-red-500 text-white">Log Out</li>
 								</ul>
 							</div>

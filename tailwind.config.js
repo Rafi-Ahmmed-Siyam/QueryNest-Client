@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
    content: [
-      "./src/**/*.{js,jsx,ts,tsx}",  // React প্রজেক্টের ফাইল পাথ
+      "./src/**/*.{js,jsx,ts,tsx}",  
       "./public/index.html"
    ],
    theme: {

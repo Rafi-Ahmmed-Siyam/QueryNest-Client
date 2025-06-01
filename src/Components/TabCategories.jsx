@@ -15,24 +15,24 @@ const TabCategories = () => {
          {/* Tab div */}
          <div className='container mx-auto'>
             <Tabs>
-               <TabList className="border-b-2 border-cyan-400"> {/* Default underline with thicker border */}
+               <TabList className="border-b-[2.5px] border-cyan-400"> {/* Default underline with thicker border */}
                   <div className="flex justify-center items-center gap-0 lg:gap-1 px-10">
                      <Tab className="react-tabs__tab"
-                        selectedClassName="react-tabs__tab--selected !font-medium !text-black !bg-cyan-400">
+                        selectedClassName="react-tabs__tab--selected !font-medium !text-[#1F2937] !bg-cyan-400">
                         Mobile Phones
                      </Tab>
                      <Tab className="react-tabs__tab border-2 border-gray-400 "
-                        selectedClassName="react-tabs__tab--selected !font-medium !text-black !bg-cyan-400"
+                        selectedClassName="react-tabs__tab--selected !font-medium !text-[#1F2937] !bg-cyan-400"
                      >
                         Audio Devices
                      </Tab>
                      <Tab className="react-tabs__tab border-2 border-gray-400"
-                        selectedClassName="react-tabs__tab--selected !font-medium !text-black !bg-cyan-400"
+                        selectedClassName="react-tabs__tab--selected !font-medium !text-[#1F2937] !bg-cyan-400"
                      >
                         Computer Accessories
                      </Tab>
                      <Tab className="react-tabs__tab border-2 border-gray-400"
-                        selectedClassName="react-tabs__tab--selected !font-medium !text-black !bg-cyan-400"
+                        selectedClassName="react-tabs__tab--selected !font-medium !text-[#1F2937] !bg-cyan-400"
                      >
                         Wearable Watches
                      </Tab>
