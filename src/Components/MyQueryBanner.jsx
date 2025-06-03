@@ -17,7 +17,7 @@ const MyQueryBanner = () => {
          {/* Right Button */}
          <div className="mt-6 lg:mt-0">
             <Link to="/addQueries">
-               <button className="bg-white text-[#3A80F3] hover:text-white hover:bg-[#265FC5] font-semibold px-6 py-3 rounded-md shadow-md transition duration-300">
+               <button className="bg-white text-[#3A80F3] hover:text-white hover:bg-[#265FC5] font-semibold px-6 py-3 rounded-md shadow-md transition duration-300 cursor-pointer">
                   ➕ Add New Query
                </button>
             </Link>
