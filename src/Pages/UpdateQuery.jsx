@@ -1,27 +1,61 @@
-import { useNavigate } from 'react-router-dom';
-import logo from '../assets/MainIcon.png'
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import useAuth from '../Hooks/useAuth';
+import logo from '../assets/MainIcon.png'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import Spinner from '../Components/Spinner';
 import toast from 'react-hot-toast';
 
-
-
-const AddQueries = () => {
+const UpdateQuery = () => {
+   const { id } = useParams();
    const { user } = useAuth();
+   const queryClient = useQueryClient();
    const navigate = useNavigate();
+
+   const { data: queryData, isLoading } = useQuery({
+      queryKey: ['query', id],
+      queryFn: async () => {
+         const { data } = await axios.get(`${import.meta.env.VITE_URL}/query/${id}`)
+         return data;
+      }
+   })
+
+
+   const { mutateAsync } = useMutation({
+      mutationFn: async (updateQueryData) => {
+         const { data } = await axios.put(`${import.meta.env.VITE_URL}/update-query/${id}`, updateQueryData);
+         console.log(data)
+      },
+      onSuccess: () => {
+         queryClient.invalidateQueries({ queryKey: ['userQuery'] });
+         queryClient.invalidateQueries({ queryKey: ['query', id] });
+         toast.success('Query updated successfully!');
+         navigate('/myQueries')
+      },
+      onError: () => {
+         console.log("Error Found")
+         toast.error('Failed to update query. Please try again.')
+      }
+
+   })
+
+   if (isLoading) return <Spinner />
+   const { _id, productName, productBrand, productImg, queryTitle, queryCategory, boycottingReason, queryPoster } = queryData;
 
    const handleAddQuery = async (e) => {
       e.preventDefault();
       const form = e.target;
-      const productName = form.productName.value;
-      const productBrand = form.productBrand.value;
-      const productImg = form.imgURL.value;
-      const queryTitle = form.queryTitle.value;
-      const queryCategory = form.queryCategory.value;
-      const boycottingReason = form.boycottingReason.value;
-      const recommendationCount = 0;
+      const productName = form.productName.value.trim();
+      const productBrand = form.productBrand.value.trim();
+      const productImg = form.imgURL.value.trim();
+      const queryTitle = form.queryTitle.value.trim();
+      const queryCategory = form.queryCategory.value.trim();
+      const boycottingReason = form.boycottingReason.value.trim();
+      const recommendationCount = queryPoster?.recommendationCount || 0;
       const currentDateAndTime = new Date();
-      const queryPostData = {
+
+      const updateQueryData = {
          productName,
          productBrand,
          productImg,
@@ -37,16 +71,21 @@ const AddQueries = () => {
          }
       }
 
-      try {
-         await axios.post(`${import.meta.env.VITE_URL}/add-query`, queryPostData)
-         form.reset();
-         toast.success('Query Added Successfully!');
-         navigate('/myQueries')
+      const isChange = productName !== queryData.productName ||
+         productBrand !== queryData.productBrand ||
+         productImg !== queryData.productImg ||
+         queryTitle !== queryData.queryTitle ||
+         queryCategory !== queryData.queryCategory ||
+         boycottingReason !== queryData.boycottingReason;
+         
 
-      } catch (err) {
-         toast.error(err?.message);
-      }
+      if(!isChange) return  toast('No changes detected! Please update at least one field.', { icon: '⚠️' });
+
+
+      mutateAsync(updateQueryData);
    }
+
+
 
    return (
       <div className='py-14 px-1.5'>
@@ -54,9 +93,11 @@ const AddQueries = () => {
          <div>
             <div>
                <h1 className="text-3xl lg:text-4xl font-bold mb-2 text-gray-800 text-center">
-                  Add a New Query
+                  Update Your Query
                </h1>
-               <p className='text-center text-sm lg:text-base max-w-2xl mx-auto mt-3.5 text-gray-700'>Share your tech-related questions here. Whether it’s about phones, audio devices, or accessories, ask now and get helpful answers from fellow users.</p>
+               <p className='text-center text-sm lg:text-base max-w-2xl mx-auto mt-3.5 text-gray-700'>Make changes to your previously submitted query below. You can modify the title, description, or any other relevant information. After updating, click the "Save Changes" button to apply the updates.
+
+               </p>
             </div>
 
             <div className='s'>
@@ -74,22 +115,22 @@ const AddQueries = () => {
                            <div className='flex gap-2.5 lg:gap-3 items-center'>
                               <div className='flex-1'>
                                  <label className="label mb-2 font-medium  text-sm text-gray-800">Product Name</label>
-                                 <input required name='productName' type="text" className="input w-full rounded-md" placeholder='Add Product Name' />
+                                 <input required defaultValue={productName} name='productName' type="text" className="input w-full rounded-md" placeholder='Add Product Name' />
                               </div>
                               <div className='flex-1'>
                                  <label className="label mb-2 font-medium  text-sm text-gray-800">Product Brand</label>
-                                 <input name='productBrand' type="text" className="input w-full rounded-md" placeholder='Add Product Brand' />
+                                 <input defaultValue={productBrand} name='productBrand' type="text" className="input w-full rounded-md" placeholder='Add Product Brand' />
                               </div>
                            </div>
                            {/* div2 */}
                            <div className='flex gap-2.5 lg:gap-3 items-center mt-2.5'>
                               <div className='flex-1/2'>
                                  <label className="label mb-2 font-medium  text-sm text-gray-800">Product Image URL</label>
-                                 <input required name='imgURL' type="url" className="input w-full rounded-md" placeholder='Add Image URL' />
+                                 <input defaultValue={productImg} required name='imgURL' type="url" className="input w-full rounded-md" placeholder='Add Image URL' />
                               </div>
                               <div className='flex-1/2'>
                                  <label className="label mb-2 font-medium  text-sm text-gray-800">Query Title</label>
-                                 <input required name='queryTitle' type="text" className="input w-full rounded-md" placeholder='Briefly Describe Your Question Here' />
+                                 <input defaultValue={queryTitle} required name='queryTitle' type="text" className="input w-full rounded-md" placeholder='Briefly Describe Your Question Here' />
 
                               </div>
                            </div>
@@ -98,7 +139,7 @@ const AddQueries = () => {
                            <div className='flex gap-2.5 lg:gap-3 items-center mt-2.5'>
                               <div className='flex-1/2'>
                                  <label className="label mb-2 font-medium  text-sm text-gray-800">Category</label>
-                                 <select name='queryCategory' required defaultValue="Select a Category" className="select w-full rounded-md">
+                                 <select name='queryCategory' required defaultValue={queryCategory} className="select w-full rounded-md">
                                     <option disabled={true}>Select a Category</option>
                                     <option>Mobile Phones</option>
                                     <option>Audio Devices</option>
@@ -108,14 +149,14 @@ const AddQueries = () => {
                               </div>
                               <div className='flex-1/2'>
                                  <label className="label mb-2 font-medium  text-sm text-gray-800">User Email</label>
-                                 <input value={user?.email} disabled name='userEmail' type="email" className="input w-full rounded-md " />
+                                 <input value={user?.email || ""} disabled name='userEmail' type="email" className="input w-full rounded-md " />
                               </div>
                            </div>
                            <div className='mt-2.5'>
                               <label className="label mb-2 font-medium  text-sm text-gray-800 ">Boycotting Reason Details</label>
-                              <textarea name='boycottingReason' className="textarea w-full resize-none rounded-md" placeholder="Share the Reason for Boycotting this Product"></textarea>
+                              <textarea defaultValue={boycottingReason} name='boycottingReason' className="textarea w-full resize-none rounded-md" placeholder="Share the Reason for Boycotting this Product"></textarea>
                            </div>
-                           <button className="btn btn-neutral mt-4 w-full rounded-md">Add Query</button>
+                           <button className="btn btn-neutral mt-4 w-full rounded-md">Update Query</button>
                         </form>
                      </div>
                   </div>
@@ -126,4 +167,4 @@ const AddQueries = () => {
    );
 };
 
-export default AddQueries; <h2>Add queries.jsx</h2>
+export default UpdateQuery;

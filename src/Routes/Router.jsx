@@ -10,6 +10,7 @@ import MyQueries from "../Pages/MyQueries";
 import Myrecommendations from "../Pages/Myrecommendations";
 import AddQueries from "../Pages/AddQueries";
 import PrivetRoute from "./PrivetRoute";
+import UpdateQuery from "../Pages/UpdateQuery";
 
 
 
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
       {
         path:'/addQueries',
         element:<PrivetRoute><AddQueries/></PrivetRoute>
+      },
+      {
+        path:'/updateQuery/:id',
+        element: <UpdateQuery/>
       }
     ]
   },
