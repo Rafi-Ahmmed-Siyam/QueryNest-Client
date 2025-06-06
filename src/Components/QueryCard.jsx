@@ -9,7 +9,7 @@ const QueryCard = ({ query, handleDeleteQuery }) => {
    // console.log(_id)
    return (
       <div className="h-full">
-         <div className="card bg-base-200 border h-full flex flex-col justify-between rounded-xl shadow-sm">
+         <div className="card bg-gray-100 border h-full flex flex-col justify-between rounded-xl shadow-sm">
             <figure className=' rounded-t-xl overflow-hidden'>
                <img
                   className='p-4 rounded-3xl max-h-[350px]'
@@ -19,11 +19,11 @@ const QueryCard = ({ query, handleDeleteQuery }) => {
             </figure>
             <div className="card-body flex flex-col flex-grow">
                <h2 className="card-title">{productName}</h2>
-               <p className="flex-grow">{boycottingReason}</p>
+               <p className="flex-grow">{boycottingReason.substring(0,80)}...</p>
                <div className="card-actions justify-start lg:justify-end mt-4">
-                  <button className="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white">
+                  <Link to={`/details/${_id}`} className="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white">
                      <FcViewDetails className='text-base text-gray-600' />View Details
-                  </button>
+                  </Link>
                   <Link to={`/updateQuery/${_id}`} className="btn btn-sm bg-slate-200 hover:bg-slate-300 text-gray-700">
                      <RxUpdate className='text-base text-white' />Update
                   </Link>

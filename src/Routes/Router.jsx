@@ -11,6 +11,8 @@ import Myrecommendations from "../Pages/Myrecommendations";
 import AddQueries from "../Pages/AddQueries";
 import PrivetRoute from "./PrivetRoute";
 import UpdateQuery from "../Pages/UpdateQuery";
+import QueryDetails from "../Pages/QueryDetails";
+import Recommendation from "../Pages/Recommendation";
 
 
 
@@ -58,6 +60,14 @@ export const router = createBrowserRouter([
       {
         path:'/updateQuery/:id',
         element: <UpdateQuery/>
+      },
+      {
+        path:'/details/:id',
+        element:<QueryDetails/>
+      },
+      {
+        path:'/recommendation/:id',
+        element:<PrivetRoute><Recommendation/></PrivetRoute>
       }
     ]
   },
