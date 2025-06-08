@@ -3,12 +3,26 @@ import logo from '../assets/MainIcon.png'
 import useAuth from '../Hooks/useAuth';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 
 
 const AddQueries = () => {
    const { user } = useAuth();
    const navigate = useNavigate();
+   const queryClient = useQueryClient();
+
+   const {mutateAsync} = useMutation({
+      mutationFn: async(queryPostData)=>{
+          await axios.post(`${import.meta.env.VITE_URL}/add-query`, queryPostData)
+      },
+      onSuccess: ()=>{
+         queryClient.invalidateQueries({ queryKey: ['allQuries'] });
+         queryClient.invalidateQueries({ queryKey: ['sectionQueries'] });
+         queryClient.invalidateQueries({ queryKey: ['userQuery'] });
+         toast.success('Query Added Successfully!');
+      }
+   })
 
    const handleAddQuery = async (e) => {
       e.preventDefault();
@@ -38,9 +52,8 @@ const AddQueries = () => {
       }
 
       try {
-         await axios.post(`${import.meta.env.VITE_URL}/add-query`, queryPostData)
+         mutateAsync(queryPostData);
          form.reset();
-         toast.success('Query Added Successfully!');
          navigate('/myQueries')
 
       } catch (err) {

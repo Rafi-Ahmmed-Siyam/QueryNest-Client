@@ -24,7 +24,7 @@ const AllQueryHeading = ({ length }) => {
                   </h2>
                </div>
 
-               <div className="w-[250px] lg:w-[350px] mx-auto">
+               <div className="w-[300px] lg:w-[350px] mx-auto">
                   <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
                      Search
                   </label>

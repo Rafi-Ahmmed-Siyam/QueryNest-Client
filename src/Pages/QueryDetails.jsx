@@ -27,7 +27,7 @@ const QueryDetails = () => {
    console.log(queryData)
 
    return (
-      <div className="py-10 px-4 lg:px-8 max-w-2xl  lg:max-w-3xl mx-auto">
+      <div className="py-10 px-4 lg:px-8 max-w-2xl  lg:max-w-2xl mx-auto">
          {/* Title */}
          <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
             {queryTitle}
@@ -39,7 +39,8 @@ const QueryDetails = () => {
             <img
                src={productImg}
                alt={productName}
-               className="mx-w-[400px] max-h-[350px] mx-auto object-cover rounded-md mb-6"
+               // className="mx-w-[400px] max-h-[350px] mx-auto object-cover rounded-md mb-6"
+               className="w-full md:w-60 rounded-xl object-cover mx-auto mb-6"
             />
 
             {/* Details */}

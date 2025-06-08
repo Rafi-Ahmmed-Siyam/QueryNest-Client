@@ -15,7 +15,7 @@ const Queries = () => {
    });
 
    if(isPending) return <Spinner/>
-   console.log(queries)
+   
 
    return (
       <div className='max-w-[1450px] mx-auto'>

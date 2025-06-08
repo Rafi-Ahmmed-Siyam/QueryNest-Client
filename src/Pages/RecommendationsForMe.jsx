@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const RecommendationsForMe = () => {
+   const [showDeleteModal, setShowDeleteModal] = useState(false);
    return (
       <div>
-         <h2>Recommendation for me</h2>
+         <h1>This is recommeand for me</h1>
       </div>
    );
 };

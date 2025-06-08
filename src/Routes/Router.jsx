@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
       },
       {
         path:'/myRecommendations',
-        element:<Myrecommendations/>
+        element:<PrivetRoute><Myrecommendations/></PrivetRoute>
       },
       {
         path:'/addQueries',
