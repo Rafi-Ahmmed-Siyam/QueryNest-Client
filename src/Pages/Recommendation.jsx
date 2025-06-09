@@ -22,7 +22,6 @@ const Recommendation = () => {
       }
    });
 
-   // যখন queryData আসবে তখন queryId সেট করো
    useEffect(() => {
       if (queryData?._id) {
          setQueryId(queryData._id);
@@ -49,8 +48,8 @@ const Recommendation = () => {
          queryClient.invalidateQueries({ queryKey: ['recommendations'] });
          toast.success("Thanks! Your recommendation has been recorded.");
       },
-      onError: () => {
-         toast.error("Something went wrong. Please try again.");
+      onError: (err) => {
+         toast.error(err?.response?.data.message);
       }
    });
 
@@ -85,8 +84,10 @@ const Recommendation = () => {
       try {
          await mutateAsync(recomenDationData);
          form.reset();
+         
       } catch (err) {
-         // Error handling if needed
+         // console.log(err)
+      //   toast.error(err?.response?.data.message)
       }
    };
 
