@@ -1,4 +1,4 @@
-# \[QueryNest]
+# QueryNest
 
 Project Purpose
 
