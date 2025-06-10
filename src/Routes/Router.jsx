@@ -13,6 +13,7 @@ import PrivetRoute from "./PrivetRoute";
 import UpdateQuery from "../Pages/UpdateQuery";
 import QueryDetails from "../Pages/QueryDetails";
 import Recommendation from "../Pages/Recommendation";
+import ErrorPage from "../Pages/ErrorPage";
 
 
 
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout/>,
+    errorElement:<ErrorPage/>,
     children : [
       {
         index : true,

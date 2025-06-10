@@ -13,7 +13,7 @@ const QueryCardPrimary = ({ query }) => {
 
                src={productImg}
                alt={productName}
-               className="p-4 rounded-3xl max-h-[350px]"
+               className="p-4 rounded-3xl max-h-[300px]"
             />
          </figure>
 

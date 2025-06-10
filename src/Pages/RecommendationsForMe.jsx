@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import useAuth from '../Hooks/useAuth';
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../Components/Spinner';
 import { timeDateFormater } from '../Utilities/DateTimeFormater';

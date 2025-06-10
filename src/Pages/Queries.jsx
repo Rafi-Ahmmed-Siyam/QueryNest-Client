@@ -8,8 +8,8 @@ import { useDebounce } from 'use-debounce';
 
 const Queries = () => {
    const [searchInput, setSearchInput] = useState('');
-   const [debounceText] = useDebounce(searchInput.trim(),500)
-   
+   const [debounceText] = useDebounce(searchInput.trim(), 500)
+
    const { data: queries = [], isLoading } = useQuery({
       queryKey: ['allQueries', debounceText],
       queryFn: async () => {
@@ -20,6 +20,7 @@ const Queries = () => {
 
    return (
       <div className='max-w-[1450px] mx-auto'>
+
          <div>
             <div className='pt-8'>
                <h2 className="text-2xl md:text-3xl font-semibold text-center text-black">
@@ -68,6 +69,11 @@ const Queries = () => {
          {isLoading && <Spinner />}
 
          {/* Query Cards */}
+         {
+            queries.length === 0 && <div className='min-h-[calc(100vh-391px)] flex justify-center items-center'><p className="text-center text-base text-gray-700 py-10">
+               No results found.
+            </p></div>
+         }
          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-5 lg:px-0 pb-10'>
             {
                queries.map(query => <QueryCardPrimary key={query._id} query={query} />)

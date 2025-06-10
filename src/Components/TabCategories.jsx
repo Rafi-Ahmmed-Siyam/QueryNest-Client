@@ -17,7 +17,7 @@ const TabCategories = () => {
    const [selectedCategory, setSelectedCategory] = useState(categories[0]);
    const [tabIndex, setTabIndex] = useState(0);
 
-   const { data: queries = [], isLoading,isFetching } = useQuery({
+   const { data: queries = [], isLoading, isFetching } = useQuery({
       queryKey: ['sectionQueries', selectedCategory],
       queryFn: async () => {
          const { data } = await axios.get(`${import.meta.env.VITE_URL}/queries?home=true&category=${encodeURIComponent(selectedCategory)}`);
@@ -26,8 +26,8 @@ const TabCategories = () => {
       keepPreviousData: true
    });
 
-   
-   if(isFetching) return <Spinner/>
+
+   if (isFetching) return <Spinner />
    return (
       <div className='mt-10'>
          <div className='mb-9'>
@@ -62,11 +62,13 @@ const TabCategories = () => {
                </TabList>
 
                <div className='max-w-[1300px] mx-auto px-2.5 lg:px-0'>
-                  {
-                     (isLoading) &&  <Spinner />
-                  }
+
                   {categories.map((_, idx) => (
+
                      <TabPanel key={idx}>
+                        {
+                           (isLoading) && <Spinner />
+                        }
                         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10 justify-center'>
                            {queries.map(query => (
                               <QueryCardPrimary key={query._id} query={query} />
