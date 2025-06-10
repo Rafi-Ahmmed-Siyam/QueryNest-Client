@@ -9,24 +9,25 @@ import Spinner from '../Components/Spinner';
 import QueryCard from '../Components/QueryCard';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 
 const MyQueries = () => {
    const queryClient = useQueryClient();
    const { user } = useAuth();
+   const axiosInstance = useAxiosSecure();
 
-   const { data: queries, isPending, isError, } = useQuery({
+   const { data: queries, isLoading, isError, error } = useQuery({
       queryKey: ['userQuery', user?.email],
       queryFn: async () => {
-         const { data } = await axios.get(`${import.meta.env.VITE_URL}/queries/${user?.email}`);
+         const { data } = await axiosInstance.get(`${import.meta.env.VITE_URL}/queries/${user?.email}`);
          return data
       }
    })
 
    const { mutateAsync } = useMutation({
       mutationFn: async (id) => {
-         const { data } = await axios.delete(`${import.meta.env.VITE_URL}/delete-query/${id}`)
-         console.log(data)
+         const { data } = await axiosInstance.delete(`${import.meta.env.VITE_URL}/delete-query/${id}`)
       },
       onSuccess: () => {
          queryClient.invalidateQueries({ queryKey: ['userQuery'] });
@@ -65,7 +66,9 @@ const MyQueries = () => {
 
    }
 
-   if (isPending) return <Spinner />
+   if (isLoading) return <Spinner />
+   if (isError) return <div className='text-red-500 flex justify-center items-center min-h-[calc(100vh-391px)]'><p>Error: {error.message}</p></div>;
+
 
    return (
       <div>

@@ -1,13 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../Components/Spinner';
 import useAuth from '../Hooks/useAuth';
 import toast from 'react-hot-toast';
 import { timeDateFormater } from '../Utilities/DateTimeFormater';
 
 const Recommendation = () => {
+   const navigate = useNavigate();
    const queryClient = useQueryClient();
    const { id } = useParams();
    const { user } = useAuth();
@@ -84,7 +85,7 @@ const Recommendation = () => {
       try {
          await mutateAsync(recomenDationData);
          form.reset();
-         
+         navigate('/myRecommendations')
       } catch (err) {
          // console.log(err)
       //   toast.error(err?.response?.data.message)
@@ -243,7 +244,7 @@ const Recommendation = () => {
                      <div className="flex justify-end">
                         <button
                            type="submit"
-                           className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold"
+                           className="bg-blue-600 btn hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold "
                         >
                            Add Recommendation
                         </button>

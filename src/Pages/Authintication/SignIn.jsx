@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import signIn from '../../assets/Auth/signIn.jpg'
 import logo from '../../assets/MainIcon.png'
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import AuthContext from '../../Contexts/AuthContext';
@@ -13,10 +13,11 @@ import toast from 'react-hot-toast';
 
 
 const SignIn = () => {
-   const navigate = useNavigate()
+   const navigate = useNavigate();
+   const location = useLocation()
    const [showPassword, setShowPassword] = useState(false);
    const { userSignin, googleLogin } = useAuth();
-
+   const from = location.state?.from?.pathname || '/';
    const handleSignin = async (e) => {
       e.preventDefault();
       const form = e.target;
@@ -26,7 +27,7 @@ const SignIn = () => {
       try {
          await userSignin(email, password);
          form.reset();
-         navigate('/')
+         navigate(from, { replace: true })
          toast.success('Signed in successfully! Welcome back!')
       } catch (err) {
          toast.error(err.message)
@@ -34,11 +35,11 @@ const SignIn = () => {
 
    }
    const handleGoogle = async () => {
-      try{
+      try {
          await googleLogin();
-          toast.success('Signed in successfully! Welcome back!')
-         navigate('/')
-      }catch(err){
+         location.state ? navigate(location.state) : navigate('/')
+         toast.success('Signed in successfully! Welcome back!')
+      } catch (err) {
          toast.error(err.message)
       }
    }

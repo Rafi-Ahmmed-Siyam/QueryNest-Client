@@ -24,7 +24,6 @@ const QueryDetails = () => {
    if (isLoading) return <Spinner />
    const { _id, productName, productBrand, productImg, queryTitle, queryCategory, boycottingReason, queryPoster } = queryData;
 
-   console.log(queryData)
 
    return (
       <div className="py-10 px-4 lg:px-8 max-w-2xl  lg:max-w-2xl mx-auto">

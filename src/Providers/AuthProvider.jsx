@@ -2,11 +2,12 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged,
 import AuthContext from "../Contexts/AuthContext";
 import { auth } from "../Firebase/Firebase.config";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const AuthProvider = ({ children }) => {
    const googleProvider = new GoogleAuthProvider();
    const [user, setUser] = useState(null);
-   const [loding,setLoding] = useState(true)
+   const [loding, setLoding] = useState(true)
 
    const createUser = (email, password) => {
       setLoding(true)
@@ -14,13 +15,13 @@ const AuthProvider = ({ children }) => {
    }
    const userSignin = (email, password) => {
       setLoding(true)
-      return signInWithEmailAndPassword(auth,email, password);
+      return signInWithEmailAndPassword(auth, email, password);
    }
    const googleLogin = () => {
       setLoding(true)
       return signInWithPopup(auth, googleProvider)
    }
-   const updateuserProfile = (name,image) => {
+   const updateuserProfile = (name, image) => {
       return updateProfile(auth.currentUser, {
          displayName: name,
          photoURL: image,
@@ -36,12 +37,17 @@ const AuthProvider = ({ children }) => {
 
    //Set a observer;
    useEffect(() => {
-      const unSubscribe = onAuthStateChanged(auth, (currentuser) => {
+      const unSubscribe = onAuthStateChanged(auth, async (currentuser) => {
          if (currentuser) {
+
+            const { data } = await axios.post(`${import.meta.env.VITE_URL}/jwt`, { email: currentuser.email }, { withCredentials: true })
+            console.log(data)
             setUser(currentuser);
             setLoding(false)
             console.log('userData----->', currentuser)
          } else {
+            const { data } = await axios.get(`${import.meta.env.VITE_URL}/logOut`, { withCredentials: true })
+            console.log(data)
             setLoding(false)
             console.log("User Loged Out")
          }

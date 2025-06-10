@@ -6,10 +6,12 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import Spinner from '../Components/Spinner';
 import toast from 'react-hot-toast';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const UpdateQuery = () => {
    const { id } = useParams();
    const { user } = useAuth();
+   const axiosInstance = useAxiosSecure()
    const queryClient = useQueryClient();
    const navigate = useNavigate();
 
@@ -24,7 +26,7 @@ const UpdateQuery = () => {
 
    const { mutateAsync } = useMutation({
       mutationFn: async (updateQueryData) => {
-         const { data } = await axios.put(`${import.meta.env.VITE_URL}/update-query/${id}`, updateQueryData);
+         const { data } = await axiosInstance.put(`${import.meta.env.VITE_URL}/update-query/${id}`, updateQueryData);
          console.log(data)
       },
       onSuccess: () => {
