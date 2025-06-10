@@ -6,7 +6,7 @@ This project is a dynamic web application designed to empower users to inquire a
 
 ## Live Site and Repositories
 
-* **Live Site Link:** \[Insert your Live Site Link here]
+* **Live Site Link:** \[[Insert your Live Site Link here](https://query-nest-client.vercel.app/)]
 
 
 ## Key Features

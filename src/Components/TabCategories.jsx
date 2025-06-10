@@ -23,11 +23,11 @@ const TabCategories = () => {
          const { data } = await axios.get(`${import.meta.env.VITE_URL}/queries?home=true&category=${encodeURIComponent(selectedCategory)}`);
          return data;
       },
-      keepPreviousData: true
+
    });
 
 
-   if (isFetching) return <Spinner />
+
    return (
       <div className='mt-10'>
          <div className='mb-9'>
@@ -63,17 +63,21 @@ const TabCategories = () => {
 
                <div className='max-w-[1300px] mx-auto px-2.5 lg:px-0'>
 
+
                   {categories.map((_, idx) => (
 
                      <TabPanel key={idx}>
+
                         {
-                           (isLoading) && <Spinner />
+                           (isFetching || isLoading) ? <Spinner /> : <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10 justify-center'>
+                              {queries.map(query => (
+                                 <QueryCardPrimary key={query._id} query={query} />
+                              ))
+                              }
+                           </div>
                         }
-                        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10 justify-center'>
-                           {queries.map(query => (
-                              <QueryCardPrimary key={query._id} query={query} />
-                           ))}
-                        </div>
+
+
                      </TabPanel>
                   ))}
                </div>

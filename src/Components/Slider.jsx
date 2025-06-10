@@ -12,7 +12,6 @@ import Slide from './Slide';
 import img1 from '../../src/assets/sliderImg/slide1.jpg'
 import img2 from '../../src/assets/sliderImg/slide2.jpg'
 import img3 from '../../src/assets/sliderImg/slide3.jpg'
-import img4 from '../../src/assets/sliderImg/slide4.jpg'
 import img5 from '../../src/assets/sliderImg/desktop-with-notebook-watch.jpg'
 
 const Slider = () => {
@@ -34,7 +33,8 @@ const Slider = () => {
             className="mySwiper"
          >
             <SwiperSlide>
-               <Slide img={img3}
+               <Slide
+                  img={img3}
                   hedding='Get Help Choosing Accessories'
                   subtext='See what others are asking about keyboards, mice, monitors, and other essentials for a better setup.'
                   btnContent='Explore Accessories Queries'

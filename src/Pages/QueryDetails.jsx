@@ -9,7 +9,7 @@ import { timeDateFormater } from '../Utilities/DateTimeFormater';
 const QueryDetails = () => {
    const { id } = useParams();
    // const { user } = useAuth();
-   console.log(id)
+   // console.log(id)
 
    const { data: queryData, isLoading } = useQuery({
       queryKey: ['query', id],

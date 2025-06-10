@@ -41,15 +41,15 @@ const AuthProvider = ({ children }) => {
          if (currentuser) {
 
             const { data } = await axios.post(`${import.meta.env.VITE_URL}/jwt`, { email: currentuser.email }, { withCredentials: true })
-            console.log(data)
+            // console.log(data)
             setUser(currentuser);
             setLoding(false)
-            console.log('userData----->', currentuser)
+            // console.log('userData----->', currentuser)
          } else {
             const { data } = await axios.get(`${import.meta.env.VITE_URL}/logOut`, { withCredentials: true })
-            console.log(data)
+            // console.log(data)
             setLoding(false)
-            console.log("User Loged Out")
+            // console.log("User Loged Out")
          }
       })
 

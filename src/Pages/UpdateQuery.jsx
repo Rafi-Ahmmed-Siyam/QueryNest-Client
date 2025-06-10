@@ -27,7 +27,7 @@ const UpdateQuery = () => {
    const { mutateAsync } = useMutation({
       mutationFn: async (updateQueryData) => {
          const { data } = await axiosInstance.put(`${import.meta.env.VITE_URL}/update-query/${id}`, updateQueryData);
-         console.log(data)
+         // console.log(data)
       },
       onSuccess: () => {
          queryClient.invalidateQueries({ queryKey: ['userQuery'] });
@@ -36,7 +36,7 @@ const UpdateQuery = () => {
          navigate('/myQueries')
       },
       onError: () => {
-         console.log("Error Found")
+         // console.log("Error Found")
          toast.error('Failed to update query. Please try again.')
       }
 

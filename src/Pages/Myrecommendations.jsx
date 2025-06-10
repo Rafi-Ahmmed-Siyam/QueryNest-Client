@@ -27,7 +27,7 @@ const Myrecommendations = () => {
    const { mutateAsync } = useMutation({
       mutationFn: async ({ id, queryId }) => {
          const { data } = await axiosInstance.delete(`${import.meta.env.VITE_URL}/delete-recommendetion/${id}?queryId=${queryId}`);
-         console.log(data)
+         // console.log(data)
          return data;
       },
       onSuccess: () => {
@@ -69,7 +69,7 @@ const Myrecommendations = () => {
          });
 
       } catch (err) {
-         console.log(err);
+         // console.log(err);
       }
 
    }
